@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "657368962747",
+    "project_id": "defesa-civil-48a07",
+    "storage_bucket": "defesa-civil-48a07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657368962747:android:690c917d4f8021c9fe7b9e",
+        "android_client_info": {
+          "package_name": "com.example.defesa_civil_agora_vai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657368962747-6n6livdjjq47n32bmm3aogvc2iq9q45e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWLnsvBJIIZbLvG4LcyUyDSHngWlPOVqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657368962747-6n6livdjjq47n32bmm3aogvc2iq9q45e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
