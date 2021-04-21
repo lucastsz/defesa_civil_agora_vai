@@ -64,10 +64,6 @@ class _Login_pageState extends State<Login_page> {
                     'assets/images/logo.png',
                     alignment: Alignment.center,
                   ),
-                  // child: Image.asset(
-                  //   'assets/images/logo.png',
-                  //   alignment: Alignment.center,
-                  // ),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -247,7 +243,12 @@ Widget _buildLogin(context, LoginBloc bloc) {
         ),
         GestureDetector(
           onTap: () async {
-            if (bloc.txtSenha.text == "" || bloc.txtMatricula.text == "") {
+            bloc.txtMatricula = _matricula;
+            bloc.txtSenha = _senha;
+            if (bloc.txtSenha.text == "" ||
+                _senha.text == "" ||
+                _matricula.text == "" ||
+                bloc.txtMatricula.text == "") {
               showDialog(
                 context: context,
                 builder: (context) {
@@ -273,8 +274,7 @@ Widget _buildLogin(context, LoginBloc bloc) {
                 },
               );
             }
-            bloc.txtMatricula = _matricula;
-            bloc.txtSenha = _senha;
+
             Banco _banco = new Banco();
             QuerySnapshot querySnapshot = await _banco.db
                 .collection("usuarios")
@@ -293,31 +293,6 @@ Widget _buildLogin(context, LoginBloc bloc) {
                   MaterialPageRoute(
                     builder: (context) => NavigatorPage(),
                   ),
-                );
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      titleTextStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                      ),
-                      title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
-                      actions: <Widget>[
-                        FlatButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text(
-                            "Ok",
-                            style: TextStyle(
-                                fontSize: sizeTextHeaderSet(context) * 0.85,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
                 );
               }
             }
