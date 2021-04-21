@@ -5,9 +5,10 @@
 import 'package:defesa_civil_agora_vai/logics/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-// import 'package:select_form_field/select_form_field.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:select_form_field/select_form_field.dart';
 
+import 'BuildDropdown.dart';
 import 'navigator_page.dart';
 
 class HomeRef extends StatefulWidget {
@@ -17,6 +18,10 @@ class HomeRef extends StatefulWidget {
 
 class _HomeRefState extends State<HomeRef> {
   HomeBloc _bloc = new HomeBloc();
+
+  String bairro;
+  String tipoNatureza;
+
   void VerificaAnonimo() {
     checkAnonimo = false;
     if (checkAnonimo == true) {
@@ -35,29 +40,29 @@ class _HomeRefState extends State<HomeRef> {
     return customSize * unitHeightValue;
   }
 
-  // //mascara numero
-  // var numbermaskFormatter = new MaskTextInputFormatter(
-  //   mask: '(##) #.####-####)',
-  //   filter: {
-  //     "#": RegExp(
-  //       r'[0-9]',
-  //       caseSensitive: true,
-  //       unicode: true,
-  //     )
-  //   },
-  // );
+  //mascara numero
+  var numbermaskFormatter = new MaskTextInputFormatter(
+    mask: '(##) #.####-####)',
+    filter: {
+      "#": RegExp(
+        r'[0-9]',
+        caseSensitive: true,
+        unicode: true,
+      )
+    },
+  );
 
-  // //mascara data
-  // var datemaskFormatter = new MaskTextInputFormatter(
-  //   mask: '##/##/####',
-  //   filter: {
-  //     "#": RegExp(
-  //       r'[0-9]',
-  //       caseSensitive: true,
-  //       unicode: true,
-  //     )
-  //   },
-  // );
+  //mascara data
+  var datemaskFormatter = new MaskTextInputFormatter(
+    mask: '##/##/####',
+    filter: {
+      "#": RegExp(
+        r'[0-9]',
+        caseSensitive: true,
+        unicode: true,
+      )
+    },
+  );
   bool checkAnonimo = false;
   @override
   Widget build(BuildContext context) {
@@ -144,7 +149,7 @@ class _HomeRefState extends State<HomeRef> {
                     child: TextField(
                       controller: _bloc.txtData,
                       keyboardType: TextInputType.datetime,
-                      // inputFormatters: [datemaskFormatter],
+                      inputFormatters: [datemaskFormatter],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -267,7 +272,7 @@ class _HomeRefState extends State<HomeRef> {
                       },
                       controller: _bloc.txtTelefone,
                       keyboardType: TextInputType.datetime,
-                      // inputFormatters: [numbermaskFormatter],
+                      inputFormatters: [numbermaskFormatter],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -490,7 +495,69 @@ class _HomeRefState extends State<HomeRef> {
                   Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * .55,
-                    child: ListaBairrosConsulta(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Color.fromRGBO(203, 79, 36, 1),
+                            style: BorderStyle.solid,
+                            width: 3),
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * .55,
+                      child: BuildDropdown(
+                        itemsList: [
+                          'Selecione o Bairro',
+                          '13 de Julho',
+                          '17 de Março',
+                          'Aeroporto',
+                          'América',
+                          'Atalaia',
+                          'Bugio',
+                          'Capucho',
+                          'Centro',
+                          'Cidade Nova',
+                          'Cirurgia',
+                          'Coroa do Meio',
+                          'Dezoito do Forte',
+                          'Dom Luciano',
+                          'Farolândia',
+                          'Getúlio Vargas',
+                          'Grageru',
+                          'Inácio Barbosa',
+                          'Industrial',
+                          'Jabotiana',
+                          'Japãozinho',
+                          'Jardim Centenário',
+                          'Jardins',
+                          'José C. de Araújo',
+                          'Lamarão',
+                          'Luzia',
+                          'Marivan',
+                          'Novo Paraíso',
+                          'Olaria',
+                          'Palestina',
+                          'Pereira Lobo',
+                          'Ponto Novo',
+                          'Porto Dantas',
+                          'Salgado Filho',
+                          'Santa Maria',
+                          'Santo Antônio',
+                          'Santos Dumont',
+                          'São Conrado',
+                          'São José',
+                          'Siqueira Campos',
+                          'Soledade',
+                          'Suíssa',
+                          'Zona de Expansão',
+                        ],
+                        defaultValue: 'Selecione o Bairro',
+                        onChanged: (value) {
+                          bairro = value;
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -547,8 +614,13 @@ class _HomeRefState extends State<HomeRef> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       hintText: 'Motivo',
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
+                      ),
                       hintStyle: TextStyle(
-                        fontSize: 16,
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
                       ),
                     ),
                   ),
@@ -562,8 +634,36 @@ class _HomeRefState extends State<HomeRef> {
               Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * .1,
-                child: ListaNatureza(),
+                height: MediaQuery.of(context).size.height * .07,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color.fromRGBO(203, 79, 36, 1),
+                        style: BorderStyle.solid,
+                        width: 3),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * .9,
+                  child: BuildDropdown(
+                    itemsList: [
+                      'Selecione o tipo de Natureza',
+                      'Alagamento/Enchente/Inundação',
+                      'Desabamento',
+                      'Deslizamento',
+                      'Risco de Desabamento',
+                      'Risco de Deslizamento',
+                      'Retirada de Parede',
+                      'Risco Explosivo/Químico/Radioativo/Biológico',
+                      'Outro',
+                    ],
+                    defaultValue: 'Selecione o tipo de Natureza',
+                    onChanged: (value) {
+                      tipoNatureza = value;
+                    },
+                  ),
+                ),
               ),
 
               Container(
@@ -572,17 +672,57 @@ class _HomeRefState extends State<HomeRef> {
 
               GestureDetector(
                 onTap: () {
-                  _bloc.cadastrar();
-                  CircularProgressIndicator(
-                    value: 0.2,
-                  );
-                  _bloc.clearTXT();
+                  if (_bloc.txtIdProtocolo.text == "" ||
+                          (_bloc.txtData.text == "") ||
+                          _bloc.txtData.text.length < 10 ||
+                          _bloc.txtLocal.text == "" ||
+                          (bairro == "Selecione o Bairro" || bairro == null) ||
+                          // (bairro == null) ||
+                          (tipoNatureza == "Selecione o tipo de Natureza" ||
+                              tipoNatureza == null)
 
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => NavigatorPage(),
-                    ),
-                  );
+                      // || tipoNatureza == null
+                      ) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          titleTextStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                          title: Text("EXISTEM CAMPOS A SEREM PREENCHIDOS!"),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                "Ok",
+                                style: TextStyle(
+                                    fontSize: sizeTextHeaderSet(context) * 0.85,
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    if (checkAnonimo == true) {
+                      _bloc.txtNomeSolicitante.text = "ANÔNIMO";
+                    }
+                    _bloc.cadastrar();
+                    CircularProgressIndicator(
+                      value: 0.2,
+                    );
+                    _bloc.clearTXT();
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NavigatorPage(),
+                      ),
+                    );
+                  }
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * .070,
@@ -611,188 +751,6 @@ class _HomeRefState extends State<HomeRef> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ListaBairrosConsulta extends StatefulWidget {
-  @override
-  _ListaBairrosConsultaState createState() => _ListaBairrosConsultaState();
-}
-
-class _ListaBairrosConsultaState extends State<ListaBairrosConsulta> {
-  String dropdownValue = "Selecione o Bairro";
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: Color.fromRGBO(203, 79, 36, 1),
-            style: BorderStyle.solid,
-            width: 3),
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton<String>(
-            iconSize: MediaQuery.of(context).size.height * .07,
-            isDense: true,
-            iconEnabledColor: Color.fromRGBO(203, 79, 36, 1),
-            dropdownColor: Colors.white,
-            icon: Icon(
-              Icons.arrow_drop_down,
-              size: 30,
-            ),
-            value: dropdownValue,
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>[
-              "Selecione o Bairro",
-              '13 de Julho',
-              '17 de Março',
-              'Aeroporto',
-              'América',
-              'Atalaia',
-              'Bugio',
-              'Capucho',
-              'Centro',
-              'Cidade Nova',
-              'Cirurgia',
-              'Coroa do Meio',
-              'Dezoito do Forte',
-              'Dom Luciano',
-              'Farolândia',
-              'Getúlio Vargas',
-              'Grageru',
-              'Inácio Barbosa',
-              'Industrial',
-              'Jabotiana',
-              'Japãozinho',
-              'Jardim Centenário',
-              'Jardins',
-              'José C. de Araújo',
-              'Lamarão',
-              'Luzia',
-              'Marivan',
-              'Novo Paraíso',
-              'Olaria',
-              'Palestina',
-              'Pereira Lobo',
-              'Ponto Novo',
-              'Porto Dantas',
-              'Salgado Filho',
-              'Santa Maria',
-              'Santo Antônio',
-              'Santos Dumont',
-              'São Conrado',
-              'São José',
-              'Siqueira Campos',
-              'Soledade',
-              'Suíssa',
-              'Zona de Expansão',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .40,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListaNatureza extends StatefulWidget {
-  @override
-  _ListaNaturezaState createState() => _ListaNaturezaState();
-}
-
-class _ListaNaturezaState extends State<ListaNatureza> {
-  String dropdownValue = 'Selecione a Natureza';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: Color.fromRGBO(203, 79, 36, 1),
-            style: BorderStyle.solid,
-            width: 3),
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton<String>(
-            iconSize: MediaQuery.of(context).size.height * .07,
-            isDense: true,
-            iconEnabledColor: Color.fromRGBO(203, 79, 36, 1),
-            dropdownColor: Colors.white,
-            icon: Icon(
-              Icons.arrow_drop_down,
-              size: 30,
-            ),
-            value: dropdownValue,
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>[
-              'Selecione a Natureza',
-              'Alagamento/Enchente/Inundação',
-              'Desabamento',
-              'Deslizamento',
-              'Risco de Desabamento',
-              'Risco de Deslizamento',
-              'Retirada de Parede',
-              'Risco Explosivo/Químico/Radioativo/Biológico',
-              'Outro',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .7,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                    ),
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey[900],
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
       ),
     );
   }

@@ -1,5 +1,9 @@
 import 'package:defesa_civil_agora_vai/logics/consultar_protocolo_solicitante_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'BuildDropdown.dart';
 
 class SolicitanteProtocolo extends StatefulWidget {
   SolicitanteProtocolo(this.pesquisa);
@@ -10,6 +14,45 @@ class SolicitanteProtocolo extends StatefulWidget {
 
 class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
   ConsultarProtocoloSolicitanteBloc _bloc;
+
+  String bairro;
+  String tipoNatureza;
+
+  bool checkAnonimo = false;
+  void VerificaAnonimo() {
+    checkAnonimo = false;
+    if (checkAnonimo == true) {
+      _bloc.txtNomeSolicitanteS.clear();
+    } else {
+      setState(() {
+        checkAnonimo = false;
+      });
+    }
+  }
+
+  //mascara numero
+  var numbermaskFormatter = new MaskTextInputFormatter(
+    mask: '(##) #.####-####)',
+    filter: {
+      "#": RegExp(
+        r'[0-9]',
+        caseSensitive: true,
+        unicode: true,
+      )
+    },
+  );
+
+  //mascara data
+  var datemaskFormatter = new MaskTextInputFormatter(
+    mask: '##/##/####',
+    filter: {
+      "#": RegExp(
+        r'[0-9]',
+        caseSensitive: true,
+        unicode: true,
+      )
+    },
+  );
 
   //redimensionar texto responsivamente
   double sizeTextHeaderSet(context) {
@@ -70,7 +113,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     child: TextField(
                       controller: _bloc.txtIdProtocoloS,
                       textCapitalization: TextCapitalization.characters,
-                      // inputFormatters: [LengthLimitingTextInputFormatter(8)],
+                      inputFormatters: [LengthLimitingTextInputFormatter(8)],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -109,7 +152,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     child: TextField(
                       controller: _bloc.txtDataS,
                       keyboardType: TextInputType.datetime,
-                      // inputFormatters: [datemaskFormatter],
+                      inputFormatters: [datemaskFormatter],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -203,9 +246,9 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                       color: Color.fromRGBO(203, 79, 36, 1),
                     ),
                   ),
-                  // onTap: () {
-                  //   VerificaAnonimo();
-                  // },
+                  onTap: () {
+                    VerificaAnonimo();
+                  },
                 ),
               ),
 
@@ -224,15 +267,15 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * .54,
+                    width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * .1,
                     child: TextField(
-                      // onTap: () {
-                      //   VerificaAnonimo();
-                      // },
+                      onTap: () {
+                        VerificaAnonimo();
+                      },
                       controller: _bloc.txtTelefoneS,
-                      // keyboardType: TextInputType.datetime,
-                      // inputFormatters: [numbermaskFormatter],
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: [numbermaskFormatter],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -320,7 +363,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     ),
                     labelText: 'Local',
                     prefixIcon: const Icon(
-                      Icons.location_on_rounded,
+                      Icons.directions_rounded,
                       color: Color.fromRGBO(203, 79, 36, 1),
                     ),
                   ),
@@ -361,7 +404,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     ),
                     labelText: 'Ponto de Referência',
                     prefixIcon: const Icon(
-                      Icons.directions_rounded,
+                      Icons.navigation_rounded,
                       color: Color.fromRGBO(203, 79, 36, 1),
                     ),
                   ),
@@ -382,7 +425,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     child: TextField(
                       controller: _bloc.txtNumeroS,
                       keyboardType: TextInputType.datetime,
-                      // inputFormatters: [LengthLimitingTextInputFormatter(5)],
+                      inputFormatters: [LengthLimitingTextInputFormatter(5)],
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.all(5),
@@ -414,11 +457,42 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                   Container(
                     width: MediaQuery.of(context).size.width * .04,
                   ),
-                  // Container(
-                  //   alignment: Alignment.center,
-                  //   width: MediaQuery.of(context).size.width * .55,
-                  //   child: ListaBairrosConsulta(),
-                  // ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width * .55,
+                    height: MediaQuery.of(context).size.height * .1,
+                    child: TextField(
+                      controller: _bloc.txtNumeroS,
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: [LengthLimitingTextInputFormatter(5)],
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(5),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(32, 32, 86, 1.0),
+                              style: BorderStyle.solid,
+                              width: 3),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(203, 79, 36, 1),
+                                style: BorderStyle.solid,
+                                width: 3)),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: sizeTextHeaderSet(context) * 1,
+                        ),
+                        labelText: 'Bairro',
+                        prefixIcon: const Icon(
+                          Icons.location_on_rounded,
+                          color: Color.fromRGBO(203, 79, 36, 1),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
 
@@ -486,19 +560,44 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                 height: MediaQuery.of(context).size.height * .03,
               ),
 
-              // Container(
-              //   alignment: Alignment.center,
-              //   width: MediaQuery.of(context).size.width * 0.9,
-              //   height: MediaQuery.of(context).size.height * .1,
-              //   child: ListaNatureza(),
-              // ),
-
               Container(
-                height: MediaQuery.of(context).size.height * .06,
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * .1,
+                child: TextField(
+                  controller: _bloc.txtPontoDeRefS,
+                  textCapitalization: TextCapitalization.characters,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(5),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                          color: Color.fromRGBO(32, 32, 86, 1.0),
+                          style: BorderStyle.solid,
+                          width: 3),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(203, 79, 36, 1),
+                            style: BorderStyle.solid,
+                            width: 3)),
+                    labelStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: sizeTextHeaderSet(context) * 1,
+                    ),
+                    labelText: 'Tipo de Natureza',
+                    prefixIcon: const Icon(
+                      Icons.new_releases_rounded,
+                      color: Color.fromRGBO(203, 79, 36, 1),
+                    ),
+                  ),
+                ),
               ),
 
               Container(
-                height: MediaQuery.of(context).size.height * .08,
+                height: MediaQuery.of(context).size.height * .1,
               ),
             ],
           ),

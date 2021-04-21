@@ -146,7 +146,7 @@ class ConsultaProtocoloPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: ListaBairrosConsulta(),
+                // child: ListaBairrosConsulta(),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .035,
@@ -157,7 +157,7 @@ class ConsultaProtocoloPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: ListaNatureza(),
+                // child: ListaNatureza(),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .05,
@@ -193,184 +193,6 @@ class ConsultaProtocoloPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ListaNatureza extends StatefulWidget {
-  @override
-  _ListaNaturezaState createState() => _ListaNaturezaState();
-}
-
-class _ListaNaturezaState extends State<ListaNatureza> {
-  String dropdownValue = "Selecione a Natureza";
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * .085,
-      width: MediaQuery.of(context).size.width * .74,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black38),
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton<String>(
-            iconSize: MediaQuery.of(context).size.height * .07,
-            isDense: true,
-            iconEnabledColor: Color.fromRGBO(203, 79, 36, 1),
-            dropdownColor: Colors.white,
-            icon: Icon(
-              Icons.arrow_drop_down,
-              size: MediaQuery.of(context).size.height * .07,
-            ),
-            value: dropdownValue,
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>[
-              'Selecione a Natureza',
-              'Alagamento/Enchente/Inundação',
-              'Desabamento',
-              'Deslizamento',
-              'Risco de Desabamento',
-              'Risco de Deslizamento',
-              'Retirada de Parede',
-              'Risco Explosivo/Químico/Radioativo/Biológico',
-              'Outro',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .55,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: sizeTextHeaderSet(context),
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListaBairrosConsulta extends StatefulWidget {
-  @override
-  _ListaBairrosConsultaState createState() => _ListaBairrosConsultaState();
-}
-
-class _ListaBairrosConsultaState extends State<ListaBairrosConsulta> {
-  String dropdownValue = "Selecione o Bairro";
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * .085,
-      width: MediaQuery.of(context).size.width * .74,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black38),
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton<String>(
-            iconSize: MediaQuery.of(context).size.height * .07,
-            isDense: true,
-            iconEnabledColor: Color.fromRGBO(203, 79, 36, 1),
-            dropdownColor: Colors.white,
-            icon: Icon(
-              Icons.arrow_drop_down,
-              size: MediaQuery.of(context).size.height * .07,
-            ),
-            value: dropdownValue,
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>[
-              "Selecione o Bairro",
-              '13 de Julho',
-              '17 de Março',
-              'Aeroporto',
-              'América',
-              'Atalaia',
-              'Bugio',
-              'Capucho',
-              'Centro',
-              'Cidade Nova',
-              'Cirurgia',
-              'Coroa do Meio',
-              'Dezoito do Forte',
-              'Dom Luciano',
-              'Farolândia',
-              'Getúlio Vargas',
-              'Grageru',
-              'Inácio Barbosa',
-              'Industrial',
-              'Jabotiana',
-              'Japãozinho',
-              'Jardim Centenário',
-              'Jardins',
-              'José C. de Araújo',
-              'Lamarão',
-              'Luzia',
-              'Marivan',
-              'Novo Paraíso',
-              'Olaria',
-              'Palestina',
-              'Pereira Lobo',
-              'Ponto Novo',
-              'Porto Dantas',
-              'Salgado Filho',
-              'Santa Maria',
-              'Santo Antônio',
-              'Santos Dumont',
-              'São Conrado',
-              'São José',
-              'Siqueira Campos',
-              'Soledade',
-              'Suíssa',
-              'Zona de Expansão',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .55,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: sizeTextHeaderSet(context),
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
       ),
     );
   }

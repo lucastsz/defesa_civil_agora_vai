@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 void main() async {
   runApp(MyApp());
-  Firebase.initializeApp();
+  // Firebase.initializeApp();
   Banco banco = new Banco();
   // Firestore.instance.collection("usuarios").getDocuments().then((value) => {
   //       value.documents.forEach((element) {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Defesa Civil App',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),

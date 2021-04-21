@@ -7,6 +7,7 @@ import 'package:defesa_civil_agora_vai/view/teste_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'consultar_protocolo.dart';
 import 'consultar_protocolo_solicitante.dart';
 import 'navigator_page.dart';
 
@@ -24,6 +25,8 @@ Widget Seta = Icon(
   size: 50,
   color: Colors.white,
 );
+TextEditingController _matricula = TextEditingController();
+TextEditingController _senha = TextEditingController();
 
 class _Login_pageState extends State<Login_page> {
   double sizeTextHeaderSet(context) {
@@ -39,6 +42,7 @@ class _Login_pageState extends State<Login_page> {
   @override
   Widget build(BuildContext context) {
     LoginBloc _bloc = new LoginBloc();
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -56,9 +60,9 @@ class _Login_pageState extends State<Login_page> {
                 Container(
                   alignment: Alignment.topCenter,
                   width: MediaQuery.of(context).size.width * .45,
-                  child: Text(
-                    "Logo",
-                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    alignment: Alignment.center,
                   ),
                   // child: Image.asset(
                   //   'assets/images/logo.png',
@@ -177,7 +181,7 @@ Widget _buildLogin(context, LoginBloc bloc) {
         Text(
           "Acessar Sistema",
           style: TextStyle(
-            fontSize: 21,
+            fontSize: sizeTextHeaderSet(context),
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -186,39 +190,91 @@ Widget _buildLogin(context, LoginBloc bloc) {
           height: MediaQuery.of(context).size.height * .045,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * .085,
+          width: MediaQuery.of(context).size.width * .70,
           decoration: BoxDecoration(
-              color: Colors.grey[350], borderRadius: BorderRadius.circular(22)),
-          child: TextFormField(
-            controller: bloc.txtMatricula,
+              color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+          child: TextField(
+            controller: _matricula,
+            inputFormatters: [LengthLimitingTextInputFormatter(6)],
+            style: TextStyle(fontSize: sizeTextHeaderSet(context)),
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Matricula',
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(22)),
-            ),
+                hoverColor: Colors.black,
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: Color.fromRGBO(203, 79, 36, 1),
+                ),
+                hintText: 'Matrícula',
+                hintStyle: TextStyle(
+                  height: 3.10,
+                ),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25))),
           ),
         ),
         SizedBox(
-          height: 25,
+          height: 15,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * .085,
+          width: MediaQuery.of(context).size.width * .70,
           decoration: BoxDecoration(
-              color: Colors.grey[350], borderRadius: BorderRadius.circular(22)),
-          child: TextFormField(
-            controller: bloc.txtSenha,
-            decoration: InputDecoration(
-              labelText: 'Senha',
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(22)),
+              color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+          child: TextField(
+            controller: _senha,
+            inputFormatters: [LengthLimitingTextInputFormatter(10)],
+            obscureText: true,
+            style: TextStyle(
+              fontSize: sizeTextHeaderSet(context),
             ),
+            decoration: InputDecoration(
+                hoverColor: Colors.black,
+                prefixIcon: Icon(
+                  Icons.keyboard,
+                  color: Color.fromRGBO(203, 79, 36, 1),
+                ),
+                hintText: 'Senha',
+                hintStyle: TextStyle(
+                  height: 3.10,
+                ),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25))),
           ),
         ),
         SizedBox(
-          height: 25,
+          height: MediaQuery.of(context).size.height * .06,
         ),
         GestureDetector(
           onTap: () async {
+            if (bloc.txtSenha.text == "" || bloc.txtMatricula.text == "") {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    titleTextStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                    title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(
+                              fontSize: sizeTextHeaderSet(context) * 0.85,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            bloc.txtMatricula = _matricula;
+            bloc.txtSenha = _senha;
             Banco _banco = new Banco();
             QuerySnapshot querySnapshot = await _banco.db
                 .collection("usuarios")
@@ -230,6 +286,8 @@ Widget _buildLogin(context, LoginBloc bloc) {
               print(
                   "Dados exibicao: ${dados["nome"]} idade: ${dados["matricula"]}");
               if (dados["senha"] == bloc.txtSenha.text.toString()) {
+                _senha.clear();
+                _matricula.clear();
                 print("Senha confere");
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -237,7 +295,30 @@ Widget _buildLogin(context, LoginBloc bloc) {
                   ),
                 );
               } else {
-                print("Senha errada");
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      titleTextStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                      title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                                fontSize: sizeTextHeaderSet(context) * 0.85,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
               }
             }
           },
@@ -266,129 +347,129 @@ Widget _buildLogin(context, LoginBloc bloc) {
   );
 }
 
-Widget _buildConta(context, LoginBloc bloc) {
-  double sizeTextHeaderSet(context) {
-    double unitHeightValue = MediaQuery.of(context).size.height * 0.0115;
-    double customSize = 2.5;
-    return customSize * unitHeightValue;
-  }
+// Widget _buildConta(context, LoginBloc bloc) {
+//   double sizeTextHeaderSet(context) {
+//     double unitHeightValue = MediaQuery.of(context).size.height * 0.0115;
+//     double customSize = 2.5;
+//     return customSize * unitHeightValue;
+//   }
 
-  return SingleChildScrollView(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .01,
-        ),
-        Seta,
-        Text(
-          "Acessar Sistema",
-          style: TextStyle(
-            fontSize: sizeTextHeaderSet(context),
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .045,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * .085,
-              width: MediaQuery.of(context).size.width * .70,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(25)),
-              child: TextField(
-                controller: bloc.txtMatricula,
-                // inputFormatters: [LengthLimitingTextInputFormatter(6)],
-                style: TextStyle(fontSize: sizeTextHeaderSet(context)),
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hoverColor: Colors.black,
-                    prefixIcon: Icon(
-                      Icons.person,
-                      color: Color.fromRGBO(203, 79, 36, 1),
-                    ),
-                    hintText: 'Matrícula',
-                    hintStyle: TextStyle(
-                      height: 3.10,
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25))),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .02,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * .085,
-              width: MediaQuery.of(context).size.width * .70,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(25)),
-              child: TextField(
-                controller: bloc.txtSenha,
-                inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                // obscureText: true,
-                style: TextStyle(
-                  fontSize: sizeTextHeaderSet(context),
-                ),
-                decoration: InputDecoration(
-                    hoverColor: Colors.black,
-                    prefixIcon: Icon(
-                      Icons.keyboard,
-                      color: Color.fromRGBO(203, 79, 36, 1),
-                    ),
-                    hintText: 'Senha',
-                    hintStyle: TextStyle(
-                      height: 3.10,
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25))),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .05,
-            ),
-            GestureDetector(
-              onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => HomeScreen(),
-                //   ),
-                // );
-              },
-              child: GestureDetector(
-                onTap: () => bloc.recuperaEdit(),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * .070,
-                  width: MediaQuery.of(context).size.width * .35,
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(32, 32, 86, 1),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "ENTRAR",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sizeTextHeaderSet(context),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+//   return SingleChildScrollView(
+//     child: Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         SizedBox(
+//           height: MediaQuery.of(context).size.height * .01,
+//         ),
+//         Seta,
+//         Text(
+//           "Acessar Sistema",
+//           style: TextStyle(
+//             fontSize: sizeTextHeaderSet(context),
+//             color: Colors.white,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         SizedBox(
+//           height: MediaQuery.of(context).size.height * .045,
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             Container(
+//               height: MediaQuery.of(context).size.height * .085,
+//               width: MediaQuery.of(context).size.width * .70,
+//               decoration: BoxDecoration(
+//                   color: Colors.grey[300],
+//                   borderRadius: BorderRadius.circular(25)),
+//               child: TextField(
+//                 controller: bloc.txtMatricula,
+//                 inputFormatters: [LengthLimitingTextInputFormatter(6)],
+//                 style: TextStyle(fontSize: sizeTextHeaderSet(context)),
+//                 keyboardType: TextInputType.number,
+//                 decoration: InputDecoration(
+//                     hoverColor: Colors.black,
+//                     prefixIcon: Icon(
+//                       Icons.person,
+//                       color: Color.fromRGBO(203, 79, 36, 1),
+//                     ),
+//                     hintText: 'Matrícula',
+//                     hintStyle: TextStyle(
+//                       height: 3.10,
+//                     ),
+//                     border: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(25))),
+//               ),
+//             ),
+//             SizedBox(
+//               height: MediaQuery.of(context).size.height * .02,
+//             ),
+//             Container(
+//               height: MediaQuery.of(context).size.height * .085,
+//               width: MediaQuery.of(context).size.width * .70,
+//               decoration: BoxDecoration(
+//                   color: Colors.grey[300],
+//                   borderRadius: BorderRadius.circular(25)),
+//               child: TextField(
+//                 controller: bloc.txtSenha,
+//                 inputFormatters: [LengthLimitingTextInputFormatter(10)],
+//                 obscureText: true,
+//                 style: TextStyle(
+//                   fontSize: sizeTextHeaderSet(context),
+//                 ),
+//                 decoration: InputDecoration(
+//                     hoverColor: Colors.black,
+//                     prefixIcon: Icon(
+//                       Icons.keyboard,
+//                       color: Color.fromRGBO(203, 79, 36, 1),
+//                     ),
+//                     hintText: 'Senha',
+//                     hintStyle: TextStyle(
+//                       height: 3.10,
+//                     ),
+//                     border: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(25))),
+//               ),
+//             ),
+//             SizedBox(
+//               height: MediaQuery.of(context).size.height * .05,
+//             ),
+//             GestureDetector(
+//               onTap: () {
+//                 // Navigator.of(context).push(
+//                 //   MaterialPageRoute(
+//                 //     builder: (context) => HomeScreen(),
+//                 //   ),
+//                 // );
+//               },
+//               child: GestureDetector(
+//                 onTap: () => bloc.recuperaEdit(),
+//                 child: Container(
+//                   height: MediaQuery.of(context).size.height * .070,
+//                   width: MediaQuery.of(context).size.width * .35,
+//                   decoration: BoxDecoration(
+//                       color: Color.fromRGBO(32, 32, 86, 1),
+//                       borderRadius: BorderRadius.circular(15)),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Text(
+//                         "ENTRAR",
+//                         style: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: sizeTextHeaderSet(context),
+//                             fontWeight: FontWeight.bold),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     ),
+//   );
+// }
