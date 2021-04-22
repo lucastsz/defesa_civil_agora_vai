@@ -5,17 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  runApp(MyApp());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  // Banco banco = new Banco();
-  // Firestore.instance.collection("usuarios").getDocuments().then((value) => {
-  //       value.documents.forEach((element) {
-  //         print(element.data);
-  //       })
-  //     });
-  // Firestore.instance.collection("usuarios")
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,3 +23,11 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+  // Banco banco = new Banco();
+  // Firestore.instance.collection("usuarios").getDocuments().then((value) => {
+  //       value.documents.forEach((element) {
+  //         print(element.data);
+  //       })
+  //     });
+  // Firestore.instance.collection("usuarios")
