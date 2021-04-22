@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 void main() async {
   runApp(MyApp());
-  // Firebase.initializeApp();
-  Banco banco = new Banco();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  // Banco banco = new Banco();
   // Firestore.instance.collection("usuarios").getDocuments().then((value) => {
   //       value.documents.forEach((element) {
   //         print(element.data);
