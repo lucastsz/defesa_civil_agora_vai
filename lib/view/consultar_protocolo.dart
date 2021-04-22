@@ -1,12 +1,8 @@
 // import 'package:defesa_civil_protocolo_app/pages/listaBairros.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-// import 'homeNav.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'navigator_page.dart';
-
-//------------------------------------------------------------------------------
-//OK
 
 double sizeTextHeaderSet(context) {
   double unitHeightValue = MediaQuery.of(context).size.height * 0.0115;
@@ -14,10 +10,16 @@ double sizeTextHeaderSet(context) {
   return customSize * unitHeightValue;
 }
 
-// var datemaskFormatter = new MaskTextInputFormatter(
-//     mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+var datemaskFormatter = new MaskTextInputFormatter(
+    mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
 
-class ConsultaProtocoloPage extends StatelessWidget {
+class ConsultaProtocoloPage extends StatefulWidget {
+  @override
+  _ConsultaProtocoloPageState createState() => _ConsultaProtocoloPageState();
+}
+
+class _ConsultaProtocoloPageState extends State<ConsultaProtocoloPage> {
+  _ConsultaProtocoloPageState _bloc = new _ConsultaProtocoloPageState();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +67,9 @@ class ConsultaProtocoloPage extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15)),
                 child: TextField(
+                  // controller: _bloc.txtPesquisa,
                   keyboardType: TextInputType.datetime,
-                  // inputFormatters: [datemaskFormatter],
+                  inputFormatters: [datemaskFormatter],
                   style: TextStyle(fontSize: sizeTextHeaderSet(context)),
                   decoration: InputDecoration(
                       hoverColor: Colors.black,

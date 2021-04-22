@@ -138,46 +138,6 @@ class _ConsultarProcoloSolicitantePageState
             ],
           ),
         ),
-
-        // SingleChildScrollView(
-        //   child: Center(
-        //     child: Column(
-        //       children: <Widget>[
-        //         Container(
-        //           color: Colors.red,
-        //           height: 100,
-        //           width: 100,
-        //         ),
-        //         TextFormField(
-        //           controller: _bloc.txtPesquisa,
-        //         ),
-        //         RaisedButton(onPressed: () async {
-        //           bool entrar = await _bloc.verificar();
-
-        //           if (entrar) {
-        //             Navigator.of(context).push(
-        //               MaterialPageRoute(
-        //                 builder: (context) => SolicitanteProtocolo(
-        //                     _bloc.txtPesquisa.text.toString()),
-        //               ),
-        //             );
-        //           } else {
-        //             AlertDialog(
-        //               actions: <Widget>[
-        //                 Text("Esse protocolo não existe"),
-        //                 FlatButton(
-        //                     onPressed: () {
-        //                       Navigator.of(context).pop();
-        //                     },
-        //                     child: Text("Fechar"))
-        //               ],
-        //             );
-        //           }
-        //         })
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

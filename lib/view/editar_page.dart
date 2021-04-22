@@ -132,6 +132,56 @@ class Editar_Page extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  titleTextStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                  ),
+                                  title: Text(
+                                      "Tem certeza que deseja excluir o protocolo GM12345D?"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      height: 35,
+                                      minWidth: 20,
+                                      color: Colors.red[700],
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text(
+                                        "  Não  ",
+                                        style: TextStyle(
+                                          fontSize:
+                                              sizeTextHeaderSet(context) * 0.85,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: .09,
+                                    ),
+                                    FlatButton(
+                                      height: 35,
+                                      minWidth: 20,
+                                      color: Colors.green[800],
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text(
+                                        "  Sim  ",
+                                        style: TextStyle(
+                                          fontSize:
+                                              sizeTextHeaderSet(context) * 0.85,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 1,
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             //REMOVER PROTOCOLO
                           },
                           child: Padding(
