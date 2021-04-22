@@ -555,6 +555,7 @@ class _HomeRefState extends State<HomeRef> {
                         defaultValue: 'Selecione o Bairro',
                         onChanged: (value) {
                           bairro = value;
+                          _bloc.txtBairro.text = bairro;
                         },
                       ),
                     ),
@@ -661,6 +662,7 @@ class _HomeRefState extends State<HomeRef> {
                     defaultValue: 'Selecione o tipo de Natureza',
                     onChanged: (value) {
                       tipoNatureza = value;
+                      _bloc.txtTipoNatureza.text = tipoNatureza;
                     },
                   ),
                 ),

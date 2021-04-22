@@ -17,6 +17,7 @@ class _ConsultarProcoloSolicitantePageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(203, 79, 36, 1),
         leading: IconButton(

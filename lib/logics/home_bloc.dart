@@ -12,6 +12,8 @@ class HomeBloc {
   TextEditingController txtPontoDeRef = TextEditingController();
   TextEditingController txtNumero = TextEditingController();
   TextEditingController txtMotivo = TextEditingController();
+  TextEditingController txtBairro = TextEditingController();
+  TextEditingController txtTipoNatureza = TextEditingController();
 
   void clearTXT() {
     txtIdProtocolo.clear();
@@ -21,6 +23,8 @@ class HomeBloc {
     txtLocal.clear();
     txtPontoDeRef.clear();
     txtMotivo.clear();
+    txtBairro.clear();
+    txtTipoNatureza.clear();
   }
 
   void cadastrar() {
@@ -32,7 +36,9 @@ class HomeBloc {
       "local": txtLocal.text.toString(),
       "pontoderef": txtPontoDeRef.text.toString(),
       "motivo": txtMotivo.text.toString(),
-      "numero": txtNumero.text.toString()
+      "numero": txtNumero.text.toString(),
+      "bairro": txtBairro.text.toString(),
+      "tiponatureza": txtTipoNatureza.text.toString(),
     });
   }
 }

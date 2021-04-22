@@ -1,205 +1,217 @@
-// import 'package:defesa_civil_protocolo_app/pages/consultar_protocolo.dart';
-// import 'package:defesa_civil_protocolo_app/pages/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
 import 'package:flutter/material.dart';
 
-import 'consultar_protocolo.dart';
-import 'login_page.dart';
+class ListagemPage extends StatefulWidget {
+  @override
+  _ListagemPageState createState() => _ListagemPageState();
+}
 
-class Editar_Page extends StatelessWidget {
+class _ListagemPageState extends State<ListagemPage> {
   double sizeTextHeaderSet(context) {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.0115;
     double customSize = 2.5;
     return customSize * unitHeightValue;
   }
 
+  Banco _banco;
+
+  @override
+  @override
+  void initState() {
+    _banco = new Banco();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(32, 32, 86, 1.0),
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        actions: [
-          IconButton(
-            alignment: Alignment.centerLeft,
-            icon: Icon(
-              Icons.search_rounded,
-              color: Colors.white,
-              size: 25,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ConsultaProtocoloPage(),
-                ),
-              );
-            },
-          ),
-        ],
         backgroundColor: Color.fromRGBO(203, 79, 36, 1),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.white,
-            size: 25,
           ),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => Login_page(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
         title: Text(
-          "PROTOCOLO DEFESA CIVIL",
+          "Listagem de protocolo",
           style: TextStyle(
-            fontSize: sizeTextHeaderSet(context),
             color: Colors.white,
           ),
         ),
       ),
       body: Column(
         children: [
-          Expanded(child: ListView.builder(
-              // itemCount: _protocolos.length,
-              itemBuilder: (context, index) {
-            final protocolo = [index];
-            return Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: ListTile(
-                    isThreeLine: true,
-                    title: Text(
-                      "GM12345D (27/01/2021)",
-                      // "${protocolo.idProtocolo.toUpperCase()} (${protocolo.data})",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(203, 79, 36, 1),
-                      ),
-                    ),
-                    subtitle: Text(
-                      "TIPO NATUREZA\nLOCAL, Nº, BAIRRO",
-                      // "${protocolo.natureza.toUpperCase()}\n${protocolo.local.toUpperCase()}, Nº${protocolo.numeroImovel}, ${protocolo.bairro.toUpperCase()}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.grey[800]),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              left: BorderSide(
-                                color: Colors.grey[200],
-                                width: 3.0,
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: StreamBuilder(
+                stream: _banco.db.collection("protocolo").snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        QueryDocumentSnapshot doc = snapshot.data.docs[i];
+                        var item = doc.data();
+
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 7.0,
+                                      offset: Offset(8.0, 8.0))
+                                ]),
+                            child: ListTile(
+                              isThreeLine: true,
+                              title: Text(
+                                "${item['id']} ${item['data']}",
+                                // "${protocolo.idProtocolo.toUpperCase()} (${protocolo.data})",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromRGBO(203, 79, 36, 1),
+                                ),
                               ),
-                              right: BorderSide(
-                                color: Colors.grey[200],
-                                width: 3.0,
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            " Nº 1   ",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey[800],
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Container(
-                          width: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            //EDITAR PROTOCOLO
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: Icon(
-                              Icons.edit,
-                              size: 25,
-                              color: Color.fromRGBO(32, 32, 86, 1.0),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  titleTextStyle: TextStyle(
-                                    color: Colors.black,
+                              subtitle: Text(
+                                "${item['local']}\n, ${item['numero']}, ${item['bairro']}",
+                                // "${protocolo.natureza.toUpperCase()}\n${protocolo.local.toUpperCase()}, Nº${protocolo.numeroImovel}, ${protocolo.bairro.toUpperCase()}",
+                                style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 20,
+                                    color: Colors.grey[800]),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 60,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        left: BorderSide(
+                                          color: Colors.grey[200],
+                                          width: 3.0,
+                                        ),
+                                        right: BorderSide(
+                                          color: Colors.grey[200],
+                                          width: 3.0,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      " Nº ${i + 1}   ",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey[800],
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                  title: Text(
-                                      "Tem certeza que deseja excluir o protocolo GM12345D?"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      height: 35,
-                                      minWidth: 20,
-                                      color: Colors.red[700],
-                                      onPressed: () => Navigator.pop(context),
-                                      child: Text(
-                                        "  Não  ",
-                                        style: TextStyle(
-                                          fontSize:
-                                              sizeTextHeaderSet(context) * 0.85,
-                                          color: Colors.white,
-                                        ),
+                                  Container(
+                                    width: 10,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      //EDITAR PROTOCOLO
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 16),
+                                      child: Icon(
+                                        Icons.edit,
+                                        size: 25,
+                                        color: Color.fromRGBO(32, 32, 86, 1.0),
                                       ),
                                     ),
-                                    Container(
-                                      width: .09,
-                                    ),
-                                    FlatButton(
-                                      height: 35,
-                                      minWidth: 20,
-                                      color: Colors.green[800],
-                                      onPressed: () => Navigator.pop(context),
-                                      child: Text(
-                                        "  Sim  ",
-                                        style: TextStyle(
-                                          fontSize:
-                                              sizeTextHeaderSet(context) * 0.85,
-                                          color: Colors.white,
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              titleTextStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 20,
+                                              ),
+                                              title: Text(
+                                                  "Tem certeza que deseja excluir o protocolo GM12345D?"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  height: 35,
+                                                  minWidth: 20,
+                                                  color: Colors.red[700],
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text(
+                                                    "  Não  ",
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          sizeTextHeaderSet(
+                                                                  context) *
+                                                              0.85,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: .09,
+                                                ),
+                                                FlatButton(
+                                                  height: 35,
+                                                  minWidth: 20,
+                                                  color: Colors.green[800],
+                                                  onPressed: () {
+                                                    doc.reference.delete();
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text(
+                                                    "  Sim  ",
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          sizeTextHeaderSet(
+                                                                  context) *
+                                                              0.85,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 1,
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.delete_forever_rounded,
+                                        size: 25,
+                                        color: Colors.red[700],
                                       ),
                                     ),
-                                    Container(
-                                      width: 1,
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                            //REMOVER PROTOCOLO
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 0),
-                            child: Icon(
-                              Icons.delete_forever_rounded,
-                              size: 25,
-                              color: Colors.red[700],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }))
+                        );
+                      });
+                }),
+          )
         ],
       ),
     );

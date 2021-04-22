@@ -50,7 +50,7 @@ class _BuildDropdownState extends State<BuildDropdown> {
           widget.onChanged(value);
         },
         style: TextStyle(
-          fontSize: sizeTextHeaderSet(context) * .8,
+          fontSize: sizeTextHeaderSet(context) * .9,
           color: Colors.black,
           fontWeight: FontWeight.w500,
         ),

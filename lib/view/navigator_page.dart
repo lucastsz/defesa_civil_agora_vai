@@ -13,7 +13,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
   int _indiceAtual = 1;
   final List<Widget> _telas = [
     HomeRef(),
-    Editar_Page(),
+    ListagemPage(),
     Login_page(),
   ];
 

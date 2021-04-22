@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'consultar_protocolo_solicitante.dart';
 import 'navigator_page.dart';
 
 double sizeTextHeaderSet(context) {
@@ -19,7 +20,7 @@ class ConsultaProtocoloPage extends StatefulWidget {
 }
 
 class _ConsultaProtocoloPageState extends State<ConsultaProtocoloPage> {
-  _ConsultaProtocoloPageState _bloc = new _ConsultaProtocoloPageState();
+  ConsultarProcoloSolicitantePage _bloc = new ConsultarProcoloSolicitantePage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
