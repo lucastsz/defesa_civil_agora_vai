@@ -76,7 +76,7 @@ class _ListagemPageState extends State<ListagemPage> {
                             child: ListTile(
                               isThreeLine: true,
                               title: Text(
-                                "${item['id']} ${item['data']}",
+                                "${item['id']} (${item['data']})",
                                 // "${protocolo.idProtocolo.toUpperCase()} (${protocolo.data})",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -85,7 +85,7 @@ class _ListagemPageState extends State<ListagemPage> {
                                 ),
                               ),
                               subtitle: Text(
-                                "${item['local']}\n, ${item['numero']}, ${item['bairro']}",
+                                "${item['nomesolicitante']}\n${item['local']}, ${item['numero']}, ${item['bairro']}",
                                 // "${protocolo.natureza.toUpperCase()}\n${protocolo.local.toUpperCase()}, Nº${protocolo.numeroImovel}, ${protocolo.bairro.toUpperCase()}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,

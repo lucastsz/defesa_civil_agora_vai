@@ -27,18 +27,48 @@ class HomeBloc {
     txtTipoNatureza.clear();
   }
 
-  void cadastrar() {
+  void cadastrarProtocolo() {
     _banco.db.collection("protocolo").doc(txtIdProtocolo.text.toString()).set({
-      "id": txtIdProtocolo.text.toString(),
-      "data": txtData.text.toString(),
-      "nomesolicitante": txtNomeSolicitante.text.toString(),
-      "telefone": txtTelefone.text.toString(),
-      "local": txtLocal.text.toString(),
-      "pontoderef": txtPontoDeRef.text.toString(),
-      "motivo": txtMotivo.text.toString(),
-      "numero": txtNumero.text.toString(),
-      "bairro": txtBairro.text.toString(),
-      "tiponatureza": txtTipoNatureza.text.toString(),
+      "id": txtIdProtocolo.text.toString().toUpperCase(),
+      "data": txtData.text.toString().toUpperCase(),
+      "nomesolicitante": txtNomeSolicitante.text.toString().toUpperCase(),
+      "telefone": txtTelefone.text.toString().toUpperCase(),
+      "local": txtLocal.text.toString().toUpperCase(),
+      "pontoderef": txtPontoDeRef.text.toString().toUpperCase(),
+      "motivo": txtMotivo.text.toString().toUpperCase(),
+      "numero": txtNumero.text.toString().toUpperCase(),
+      "bairro": txtBairro.text.toString().toUpperCase(),
+      "tiponatureza": txtTipoNatureza.text.toString().toUpperCase(),
+    });
+  }
+
+  void cadastrarSolicitante() {
+    _banco.db.collection("protocolo").doc(txtIdProtocolo.text.toString()).set({
+      "id": txtIdProtocolo.text.toString().toUpperCase(),
+      "data": txtData.text.toString().toUpperCase(),
+      "nomesolicitante": txtNomeSolicitante.text.toString().toUpperCase(),
+      "telefone": txtTelefone.text.toString().toUpperCase(),
+      "local": txtLocal.text.toString().toUpperCase(),
+      "pontoderef": txtPontoDeRef.text.toString().toUpperCase(),
+      "motivo": txtMotivo.text.toString().toUpperCase(),
+      "numero": txtNumero.text.toString().toUpperCase(),
+      "bairro": txtBairro.text.toString().toUpperCase(),
+      "tiponatureza": txtTipoNatureza.text.toString().toUpperCase(),
+    });
+  }
+
+  void cadastrarEndereco() {
+    _banco.db.collection("protocolo").doc(txtIdProtocolo.text.toString()).set({
+      "id": txtIdProtocolo.text.toString().toUpperCase(),
+      "data": txtData.text.toString().toUpperCase(),
+      "nomesolicitante": txtNomeSolicitante.text.toString().toUpperCase(),
+      "telefone": txtTelefone.text.toString().toUpperCase(),
+      "local": txtLocal.text.toString().toUpperCase(),
+      "pontoderef": txtPontoDeRef.text.toString().toUpperCase(),
+      "motivo": txtMotivo.text.toString().toUpperCase(),
+      "numero": txtNumero.text.toString().toUpperCase(),
+      "bairro": txtBairro.text.toString().toUpperCase(),
+      "tiponatureza": txtTipoNatureza.text.toString().toUpperCase(),
     });
   }
 }
