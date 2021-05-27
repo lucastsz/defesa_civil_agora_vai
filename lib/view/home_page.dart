@@ -1,7 +1,3 @@
-// import 'package:defesa_civil_protocolo_app/model/Protocolo.dart';
-// import 'package:defesa_civil_protocolo_app/pages/consultar_protocolo.dart';
-// import 'package:defesa_civil_protocolo_app/pages/editar_page.dart';
-// import 'package:defesa_civil_protocolo_app/pages/homeNav.dart';
 import 'package:defesa_civil_agora_vai/logics/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
