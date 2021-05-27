@@ -1,7 +1,9 @@
+import 'package:defesa_civil_agora_vai/view/testeLista.dart';
 import 'package:flutter/material.dart';
 
 import 'editar_page.dart';
 import 'home_page.dart';
+import 'listagem_page.dart';
 import 'login_page.dart';
 
 class NavigatorPage extends StatefulWidget {
