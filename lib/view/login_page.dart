@@ -249,30 +249,30 @@ Widget _buildLogin(context, LoginBloc bloc) {
                 _senha.text == "" ||
                 _matricula.text == "" ||
                 bloc.txtMatricula.text == "") {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    titleTextStyle: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
-                    title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(
-                              fontSize: sizeTextHeaderSet(context) * 0.85,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
+              // showDialog(
+              //   context: context,
+              //   builder: (context) {
+              //     return AlertDialog(
+              //       titleTextStyle: TextStyle(
+              //         color: Colors.black,
+              //         fontWeight: FontWeight.w600,
+              //         fontSize: 20,
+              //       ),
+              //       title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
+              //       actions: <Widget>[
+              //         FlatButton(
+              //           onPressed: () => Navigator.pop(context),
+              //           child: Text(
+              //             "Ok",
+              //             style: TextStyle(
+              //                 fontSize: sizeTextHeaderSet(context) * 0.85,
+              //                 color: Colors.black),
+              //           ),
+              //         ),
+              //       ],
+              //     );
+              //   },
+              // );
             }
 
             Banco _banco = new Banco();

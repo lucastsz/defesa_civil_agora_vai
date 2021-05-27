@@ -14,7 +14,6 @@ class HomeRef extends StatefulWidget {
 
 class _HomeRefState extends State<HomeRef> {
   HomeBloc _bloc = new HomeBloc();
-
   String bairro;
   String tipoNatureza;
 
@@ -709,7 +708,7 @@ class _HomeRefState extends State<HomeRef> {
                     if (checkAnonimo == true) {
                       _bloc.txtNomeSolicitante.text = "ANÔNIMO";
                     }
-                    _bloc.cadastrar();
+                    _bloc.cadastrarProtocolo();
                     CircularProgressIndicator(
                       value: 0.2,
                     );
