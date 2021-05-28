@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
+import 'package:defesa_civil_agora_vai/view/home_page.dart';
 import 'package:defesa_civil_agora_vai/view/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: Login_page(),
+      home: HomeRef(),
+      //home: Login_page(),
     );
   }
 }
