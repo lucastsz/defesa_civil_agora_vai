@@ -2,17 +2,15 @@ import 'package:defesa_civil_agora_vai/logics/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:select_form_field/select_form_field.dart';
-
-import 'BuildDropdown.dart';
+import '../logics/BuildDropdown.dart';
 import 'navigator_page.dart';
 
-class HomeRef extends StatefulWidget {
+class CadastroPage extends StatefulWidget {
   @override
   _HomeRefState createState() => _HomeRefState();
 }
 
-class _HomeRefState extends State<HomeRef> {
+class _HomeRefState extends State<CadastroPage> {
   HomeBloc _bloc = new HomeBloc();
   String bairro;
   String tipoNatureza;
@@ -59,9 +57,11 @@ class _HomeRefState extends State<HomeRef> {
     },
   );
   bool checkAnonimo = false;
+
+  //
   @override
   Widget build(BuildContext context) {
-    // HomeBloc _bloc =  new HomeBloc();
+    HomeBloc _bloc = new HomeBloc();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -203,7 +203,7 @@ class _HomeRefState extends State<HomeRef> {
               Container(
                 height: MediaQuery.of(context).size.height * .03,
               ),
-              //
+
               //
               Container(
                 alignment: Alignment.center,
@@ -670,16 +670,12 @@ class _HomeRefState extends State<HomeRef> {
               GestureDetector(
                 onTap: () {
                   if (_bloc.txtIdProtocolo.text == "" ||
-                          (_bloc.txtData.text == "") ||
-                          _bloc.txtData.text.length < 10 ||
-                          _bloc.txtLocal.text == "" ||
-                          (bairro == "Selecione o Bairro" || bairro == null) ||
-                          // (bairro == null) ||
-                          (tipoNatureza == "Selecione o tipo de Natureza" ||
-                              tipoNatureza == null)
-
-                      // || tipoNatureza == null
-                      ) {
+                      (_bloc.txtData.text == "") ||
+                      _bloc.txtData.text.length < 10 ||
+                      _bloc.txtLocal.text == "" ||
+                      (bairro == "Selecione o Bairro" || bairro == null) ||
+                      (tipoNatureza == "Selecione o tipo de Natureza" ||
+                          tipoNatureza == null)) {
                     showDialog(
                       context: context,
                       builder: (context) {

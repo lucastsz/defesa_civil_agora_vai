@@ -2,18 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
 import 'package:defesa_civil_agora_vai/logics/login_bloc.dart';
-import 'package:defesa_civil_agora_vai/view/home_page.dart';
-import 'package:defesa_civil_agora_vai/view/teste_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'consultar_protocolo.dart';
-import 'consultar_protocolo_solicitante.dart';
+import 'consultar_protocolo_page.dart';
+import 'consultar_protocolo_solicitante_page.dart';
 import 'navigator_page.dart';
-
-// import 'consultar_protocolo.dart';
-// import 'consultar_protocolo_solicitante.dart';
-// import 'homeNav.dart';
 
 class Login_page extends StatefulWidget {
   @override
@@ -112,10 +106,6 @@ class _Login_pageState extends State<Login_page> {
                 ),
               ],
             ),
-
-            //BOTÃO PESQUISAR
-
-            //ROLAGEM ACESSAR SISTEMA
 
             Positioned(
               bottom: 0,
@@ -249,30 +239,30 @@ Widget _buildLogin(context, LoginBloc bloc) {
                 _senha.text == "" ||
                 _matricula.text == "" ||
                 bloc.txtMatricula.text == "") {
-              // showDialog(
-              //   context: context,
-              //   builder: (context) {
-              //     return AlertDialog(
-              //       titleTextStyle: TextStyle(
-              //         color: Colors.black,
-              //         fontWeight: FontWeight.w600,
-              //         fontSize: 20,
-              //       ),
-              //       title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
-              //       actions: <Widget>[
-              //         FlatButton(
-              //           onPressed: () => Navigator.pop(context),
-              //           child: Text(
-              //             "Ok",
-              //             style: TextStyle(
-              //                 fontSize: sizeTextHeaderSet(context) * 0.85,
-              //                 color: Colors.black),
-              //           ),
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // );
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    titleTextStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                    title: Text("USUÁRIO OU SENHA INCORRETO(S)"),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(
+                              fontSize: sizeTextHeaderSet(context) * 0.85,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             }
 
             Banco _banco = new Banco();

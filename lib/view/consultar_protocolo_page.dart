@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'consultar_protocolo_solicitante.dart';
+import 'consultar_protocolo_solicitante_page.dart';
 import 'navigator_page.dart';
 
 double sizeTextHeaderSet(context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import 'BuildDropdown.dart';
+import '../logics/BuildDropdown.dart';
 
 class SolicitanteProtocolo extends StatefulWidget {
   SolicitanteProtocolo(this.pesquisa);

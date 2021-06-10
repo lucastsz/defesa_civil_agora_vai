@@ -1,5 +1,5 @@
 import 'package:defesa_civil_agora_vai/logics/consultar_protocolo_solicitante_bloc.dart';
-import 'package:defesa_civil_agora_vai/view/consultar_protocolo.dart';
+import 'package:defesa_civil_agora_vai/view/consultar_protocolo_page.dart';
 import 'package:defesa_civil_agora_vai/view/solicitante_protocolo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
