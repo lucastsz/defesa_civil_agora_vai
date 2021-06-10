@@ -55,6 +55,9 @@ class _ListagemPageState extends State<ListagemPage> {
                 stream: _banco.db.collection("protocolo").snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
                   return ListView.builder(
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int i) {

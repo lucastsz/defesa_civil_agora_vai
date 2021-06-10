@@ -21,11 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-  // Banco banco = new Banco();
-  // Firestore.instance.collection("usuarios").getDocuments().then((value) => {
-  //       value.documents.forEach((element) {
-  //         print(element.data);
-  //       })
-  //     });
-  // Firestore.instance.collection("usuarios")
