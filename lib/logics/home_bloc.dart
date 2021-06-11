@@ -14,6 +14,7 @@ class HomeBloc {
   TextEditingController txtMotivo = TextEditingController();
   TextEditingController txtBairro = TextEditingController();
   TextEditingController txtTipoNatureza = TextEditingController();
+  TextEditingController txtObservacao = TextEditingController();
 
   void clearTXT() {
     txtIdProtocolo.clear();

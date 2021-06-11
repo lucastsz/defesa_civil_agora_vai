@@ -26,6 +26,8 @@ class _HomeRefState extends State<CadastroPage> {
     }
   }
 
+  String radioItem = 'Não';
+
   //redimensionar texto responsivamente
   double sizeTextHeaderSet(context) {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.0115;
@@ -322,7 +324,7 @@ class _HomeRefState extends State<CadastroPage> {
                           "Anônimo",
                           style: TextStyle(
                               color: Colors.grey[900],
-                              fontSize: 16,
+                              fontSize: sizeTextHeaderSet(context) * 0.89,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
@@ -587,6 +589,46 @@ class _HomeRefState extends State<CadastroPage> {
 
               Container(
                 alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * .07,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color.fromRGBO(203, 79, 36, 1),
+                        style: BorderStyle.solid,
+                        width: 3),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * .9,
+                  child: BuildDropdown(
+                    itemsList: [
+                      'Selecione o tipo de Natureza',
+                      'Alagamento/Enchente/Inundação',
+                      'Desabamento',
+                      'Deslizamento',
+                      'Risco de Desabamento',
+                      'Risco de Deslizamento',
+                      'Retirada de Parede',
+                      'Risco Explosivo/Químico/Radioativo/Biológico',
+                      'Outro',
+                    ],
+                    defaultValue: 'Selecione o tipo de Natureza',
+                    onChanged: (value) {
+                      tipoNatureza = value;
+                      _bloc.txtTipoNatureza.text = tipoNatureza;
+                    },
+                  ),
+                ),
+              ),
+
+              Container(
+                height: MediaQuery.of(context).size.height * .03,
+              ),
+
+              Container(
+                alignment: Alignment.center,
                 height: 100,
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
@@ -623,42 +665,109 @@ class _HomeRefState extends State<CadastroPage> {
                 ),
               ),
 
+//
               Container(
-                height: MediaQuery.of(context).size.height * .03,
+                height: MediaQuery.of(context).size.height * .04,
+              ),
+              //
+
+              Container(
+                alignment: Alignment.centerLeft,
+                color: Color.fromRGBO(32, 32, 86, 1.0),
+                height: MediaQuery.of(context).size.height * .07,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 38),
+                  child: Text(
+                    "SITUAÇÃO",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: sizeTextHeaderSet(context) * 1.2,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: RadioListTile(
+                  activeColor: Color.fromRGBO(32, 32, 86, 1),
+                  groupValue: radioItem,
+                  title: Text(
+                    'Vistoriada',
+                    style: TextStyle(
+                      fontSize: sizeTextHeaderSet(context) * 1,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  value: 'Sim',
+                  onChanged: (val) {
+                    setState(() {
+                      radioItem = val;
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: RadioListTile(
+                  activeColor: Color.fromRGBO(32, 32, 86, 1),
+                  groupValue: radioItem,
+                  title: Text(
+                    'Não Vistoriada',
+                    style: TextStyle(
+                      fontSize: sizeTextHeaderSet(context) * 1,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  value: 'Não',
+                  onChanged: (val) {
+                    setState(() {
+                      radioItem = val;
+                    });
+                  },
+                ),
               ),
 
               Container(
+                height: MediaQuery.of(context).size.height * .03,
+              ),
+              Container(
                 alignment: Alignment.center,
+                height: 100,
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * .07,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromRGBO(203, 79, 36, 1),
-                        style: BorderStyle.solid,
-                        width: 3),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(5),
+                    bottomRight: Radius.circular(5),
+                    bottomLeft: Radius.circular(5),
                   ),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * .9,
-                  child: BuildDropdown(
-                    itemsList: [
-                      'Selecione o tipo de Natureza',
-                      'Alagamento/Enchente/Inundação',
-                      'Desabamento',
-                      'Deslizamento',
-                      'Risco de Desabamento',
-                      'Risco de Deslizamento',
-                      'Retirada de Parede',
-                      'Risco Explosivo/Químico/Radioativo/Biológico',
-                      'Outro',
-                    ],
-                    defaultValue: 'Selecione o tipo de Natureza',
-                    onChanged: (value) {
-                      tipoNatureza = value;
-                      _bloc.txtTipoNatureza.text = tipoNatureza;
-                    },
+                  border: Border.all(
+                    color: Color.fromRGBO(203, 79, 36, 1),
+                    width: 3,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: TextField(
+                    controller: _bloc.txtObservacao,
+                    maxLines: 7,
+                    minLines: 5,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'Observação (Opcional)',
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
+                      ),
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
+                      ),
+                    ),
                   ),
                 ),
               ),
