@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../logics/BuildDropdown.dart';
+import 'login_page.dart';
 import 'navigator_page.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeRefState extends State<CadastroPage> {
   String bairro;
   String tipoNatureza;
 
-  void VerificaAnonimo() {
+  Future<void> VerificaAnonimo() async {
     checkAnonimo = false;
     if (checkAnonimo == true) {
       _bloc.txtNomeSolicitante.clear();
@@ -63,16 +64,40 @@ class _HomeRefState extends State<CadastroPage> {
   //
   @override
   Widget build(BuildContext context) {
-    HomeBloc _bloc = new HomeBloc();
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Color.fromRGBO(203, 79, 36, 1),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop(
+                  MaterialPageRoute(
+                    builder: (context) => Login_page(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+        title: Text(
+          "DEFESA CIVIL ARACAJU",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
           child: Column(
             children: [
-              Container(
-                height: 24,
-              ),
               Container(
                 alignment: Alignment.centerLeft,
                 color: Color.fromRGBO(32, 32, 86, 1.0),
@@ -810,10 +835,9 @@ class _HomeRefState extends State<CadastroPage> {
                       },
                     );
                   } else {
-                    if (checkAnonimo == true) {
-                      _bloc.txtNomeSolicitante.text = "ANÔNIMO";
-                    }
-                    _bloc.cadastrarProtocolo();
+                    _bloc.cadastrarSolicitante(checkAnonimo);
+                    _bloc.cadastrarEndereco();
+                    _bloc.cadastrarProtocolo(checkAnonimo, radioItem);
                     CircularProgressIndicator(
                       value: 0.2,
                     );

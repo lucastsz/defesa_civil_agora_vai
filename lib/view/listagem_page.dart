@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
-import 'package:defesa_civil_agora_vai/logics/listagem_bloc.dart';
 import 'package:flutter/material.dart';
+
+import 'login_page.dart';
 
 class ListagemPage extends StatefulWidget {
   @override
@@ -15,13 +16,11 @@ class _ListagemPageState extends State<ListagemPage> {
     return customSize * unitHeightValue;
   }
 
-  ListagemBloc _bloc;
   Banco _banco;
 
   @override
   @override
   void initState() {
-    _bloc = new ListagemBloc();
     _banco = new Banco();
     super.initState();
   }
@@ -29,16 +28,57 @@ class _ListagemPageState extends State<ListagemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Color.fromRGBO(203, 79, 36, 1),
+        actions: [
+          IconButton(
+            onPressed: () {
+              //Aqui abre uma tela para filtros
+            },
+            icon: const Icon(
+              Icons.filter_alt_rounded,
+              color: Colors.white,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop(
+                  MaterialPageRoute(
+                    builder: (context) => Login_page(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+        title: Text(
+          "DEFESA CIVIL ARACAJU",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Column(
         children: [
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Expanded(
             child: StreamBuilder(
                 stream: _banco.db.collection("protocolo").snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
                   return ListView.builder(
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int i) {
@@ -60,7 +100,7 @@ class _ListagemPageState extends State<ListagemPage> {
                             child: ListTile(
                               isThreeLine: true,
                               title: Text(
-                                "${item['id']} ${item['data']}",
+                                "${item['id']} (${item['data']})",
                                 // "${protocolo.idProtocolo.toUpperCase()} (${protocolo.data})",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -69,7 +109,7 @@ class _ListagemPageState extends State<ListagemPage> {
                                 ),
                               ),
                               subtitle: Text(
-                                "${item['local']}\n, ${item['numero']}, ${item['bairro']}",
+                                "${item['nomesolicitante']}\n${item['local']}, ${item['numero']}, ${item['bairro']}",
                                 // "${protocolo.natureza.toUpperCase()}\n${protocolo.local.toUpperCase()}, Nº${protocolo.numeroImovel}, ${protocolo.bairro.toUpperCase()}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -94,7 +134,7 @@ class _ListagemPageState extends State<ListagemPage> {
                                       ),
                                     ),
                                     child: Text(
-                                      " Nº ${i}   ",
+                                      " Nº ${i + 1}   ",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 15,

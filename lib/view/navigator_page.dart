@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'editar_page.dart';
+import 'listagem_page.dart';
 import 'cadastro_page.dart';
 import 'login_page.dart';
+import 'relatorio_page.dart';
 
 class NavigatorPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
   final List<Widget> _telas = [
     CadastroPage(),
     ListagemPage(),
-    Login_page(),
+    RelatorioPage(),
   ];
 
   @override
@@ -48,10 +49,10 @@ class _NavigatorPageState extends State<NavigatorPage> {
           ),
           BottomNavigationBarItem(
             title: Text(
-              "Sair",
+              "Relatório",
             ),
             icon: Icon(
-              Icons.exit_to_app,
+              Icons.analytics_outlined,
             ),
           ),
         ],
@@ -61,13 +62,13 @@ class _NavigatorPageState extends State<NavigatorPage> {
 
   void onTabTapped(int index) {
     setState(() {
-      if (index == 2) {
-        Navigator.of(context).pop(
-          MaterialPageRoute(
-            builder: (context) => Login_page(),
-          ),
-        );
-      }
+      // if (index == 2) {
+      //   Navigator.of(context).pop(
+      //     MaterialPageRoute(
+      //       builder: (context) => Login_page(),
+      //     ),
+      //   );
+      // }
       _indiceAtual = index;
     });
   }
