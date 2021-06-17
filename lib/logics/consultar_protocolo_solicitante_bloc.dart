@@ -52,5 +52,7 @@ class ConsultarProtocoloSolicitanteBloc {
     txtNumeroS.text = dados["numero"];
     txtObservacao.text = dados["observacao"];
     txtSituacao = dados["situacao"];
+    txtBairro = dados["bairro"];
+    txtTipoNatureza = dados["tiponatureza"];
   }
 }

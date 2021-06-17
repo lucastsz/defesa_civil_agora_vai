@@ -459,7 +459,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     width: MediaQuery.of(context).size.width * .55,
                     height: MediaQuery.of(context).size.height * .1,
                     child: TextField(
-                      controller: _bloc.txtBairroS,
+                      controller: _bloc.txtBairro,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [LengthLimitingTextInputFormatter(5)],
                       decoration: InputDecoration(
