@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:defesa_civil_agora_vai/logics/editar_bloc.dart';
 import 'package:defesa_civil_agora_vai/logics/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,18 +8,20 @@ import '../logics/BuildDropdown.dart';
 import 'login_page.dart';
 import 'navigator_page.dart';
 
-class CadastroPage extends StatefulWidget {
+class EditarPage extends StatefulWidget {
+  Map<String, dynamic> item;
+  EditarPage({this.item});
   @override
-  _HomeRefState createState() => _HomeRefState();
+  _EditarPageState createState() => _EditarPageState();
 }
 
-class _HomeRefState extends State<CadastroPage> {
-  HomeBloc _bloc = new HomeBloc();
+class _EditarPageState extends State<EditarPage> {
+  EditarBloc _bloc;
   String bairro;
   String tipoNatureza;
-  bool checkAnonimo = false;
 
   Future<void> VerificaAnonimo() async {
+    checkAnonimo = false;
     if (checkAnonimo == true) {
       _bloc.txtNomeSolicitante.clear();
     } else {
@@ -59,8 +63,15 @@ class _HomeRefState extends State<CadastroPage> {
       )
     },
   );
+  bool checkAnonimo = false;
 
-  //
+  @override
+  void initState() {
+    _bloc = EditarBloc(item: widget.item);
+    _bloc.preencherItens();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -840,7 +851,6 @@ class _HomeRefState extends State<CadastroPage> {
                     CircularProgressIndicator(
                       value: 0.2,
                     );
-                    _bloc.clearTXT();
 
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -859,7 +869,7 @@ class _HomeRefState extends State<CadastroPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "CADASTRAR",
+                        "EDITAR",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: sizeTextHeaderSet(context) * 1.2,

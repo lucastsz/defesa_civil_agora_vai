@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
 import 'package:defesa_civil_agora_vai/logics/login_bloc.dart';
+import 'package:defesa_civil_agora_vai/view/cadastro_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -228,6 +229,18 @@ Widget _buildLogin(context, LoginBloc bloc) {
                     borderRadius: BorderRadius.circular(25))),
           ),
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .06,
+        ),
+        GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Cadastro(),
+                ),
+              );
+            },
+            child: Text("Cadastrar")),
         SizedBox(
           height: MediaQuery.of(context).size.height * .06,
         ),

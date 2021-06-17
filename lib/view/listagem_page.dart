@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
+import 'package:defesa_civil_agora_vai/view/editar_page.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
@@ -83,7 +84,7 @@ class _ListagemPageState extends State<ListagemPage> {
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int i) {
                         QueryDocumentSnapshot doc = snapshot.data.docs[i];
-                        var item = doc.data();
+                        Map<String, dynamic> item = doc.data();
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -101,7 +102,6 @@ class _ListagemPageState extends State<ListagemPage> {
                               isThreeLine: true,
                               title: Text(
                                 "${item['id']} (${item['data']})",
-                                // "${protocolo.idProtocolo.toUpperCase()} (${protocolo.data})",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -110,7 +110,6 @@ class _ListagemPageState extends State<ListagemPage> {
                               ),
                               subtitle: Text(
                                 "${item['nomesolicitante']}\n${item['local']}, ${item['numero']}, ${item['bairro']}",
-                                // "${protocolo.natureza.toUpperCase()}\n${protocolo.local.toUpperCase()}, Nº${protocolo.numeroImovel}, ${protocolo.bairro.toUpperCase()}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.grey[800]),
@@ -148,6 +147,68 @@ class _ListagemPageState extends State<ListagemPage> {
                                   GestureDetector(
                                     onTap: () {
                                       //EDITAR PROTOCOLO
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            titleTextStyle: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20,
+                                            ),
+                                            title: Text(
+                                                "Tem certeza que deseja editar o protocolo ${item["id"]}?"),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                height: 35,
+                                                minWidth: 20,
+                                                color: Colors.red[700],
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text(
+                                                  "  Não  ",
+                                                  style: TextStyle(
+                                                    fontSize: sizeTextHeaderSet(
+                                                            context) *
+                                                        0.85,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: .09,
+                                              ),
+                                              FlatButton(
+                                                height: 35,
+                                                minWidth: 20,
+                                                color: Colors.green[800],
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditarPage(
+                                                        item: item,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  "  Sim  ",
+                                                  style: TextStyle(
+                                                    fontSize: sizeTextHeaderSet(
+                                                            context) *
+                                                        0.85,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 1,
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 16),
@@ -172,7 +233,7 @@ class _ListagemPageState extends State<ListagemPage> {
                                                 fontSize: 20,
                                               ),
                                               title: Text(
-                                                  "Tem certeza que deseja excluir o protocolo GM12345D?"),
+                                                  "Tem certeza que deseja excluir o protocolo ${item["id"]}?"),
                                               actions: <Widget>[
                                                 FlatButton(
                                                   height: 35,
