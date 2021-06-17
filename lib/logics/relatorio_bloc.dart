@@ -6,6 +6,7 @@ class RelatorioBloc {
   int vistoriadas;
   int anonimos;
   int cadastradas;
+  int faltam;
 
   Banco banco;
   RelatorioBloc() {
@@ -31,8 +32,16 @@ class RelatorioBloc {
   recuperaVistoriadas() async {
     QuerySnapshot querySnapshot = await banco.db
         .collection("protocolo")
-        .where("situacao", isEqualTo: "NÃO VISTORIADO")
+        .where("situacao", isEqualTo: "VISTORIADO")
         .get();
     vistoriadas = querySnapshot.docs.length;
+  }
+
+  recuperaNaoVistoriadas() async {
+    QuerySnapshot querySnapshot = await banco.db
+        .collection("protocolo")
+        .where("situacao", isEqualTo: "NÃO VISTORIADO")
+        .get();
+    faltam = querySnapshot.docs.length;
   }
 }

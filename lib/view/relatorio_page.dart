@@ -2,6 +2,7 @@
 /// the middle.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:charts_flutter/flutter.dart';
+import 'package:defesa_civil_agora_vai/logics/relatorio_bloc.dart';
 import 'package:defesa_civil_agora_vai/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -12,6 +13,16 @@ class RelatorioPage extends StatefulWidget {
 }
 
 class _RelatorioPageState extends State<RelatorioPage> {
+  RelatorioBloc _bloc;
+  @override
+  void initState() {
+    _bloc = RelatorioBloc();
+    _bloc.recuperaAnonimo();
+    _bloc.recuperaCadastradas();
+    _bloc.recuperaVistoriadas();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,19 +68,26 @@ class _RelatorioPageState extends State<RelatorioPage> {
               height: 300,
               child: Stack(
                 children: [
-                  Container(
-                    width: 220,
-                    height: 220,
-                    child: new charts.PieChart(_createGraph(8, 2, 6),
-                        animationDuration: Duration(seconds: 3),
-                        animate: false,
-                        defaultRenderer: charts.ArcRendererConfig(
-                            arcWidth: 50,
-                            arcRendererDecorators: [
-                              charts.ArcLabelDecorator(
-                                  insideLabelStyleSpec: charts.TextStyleSpec(
-                                      fontSize: 20, color: charts.Color.white))
-                            ])),
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      child: charts.PieChart(
+                          _createGraph(_bloc.vistoriadas ?? 0,
+                              _bloc.anonimos ?? 0, _bloc.cadastradas ?? 0),
+                          animationDuration: Duration(seconds: 3),
+                          animate: false,
+                          defaultRenderer: charts.ArcRendererConfig(
+                              arcWidth: 50,
+                              arcRendererDecorators: [
+                                charts.ArcLabelDecorator(
+                                    insideLabelStyleSpec: charts.TextStyleSpec(
+                                        fontSize: 20,
+                                        color: charts.Color.white))
+                              ])),
+                    ),
                   ),
                   Positioned(
                       bottom: 20,
@@ -168,9 +186,11 @@ class _RelatorioPageState extends State<RelatorioPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "11",
-                        )
+                        _bloc.faltam != null
+                            ? Text(
+                                "${_bloc.faltam}",
+                              )
+                            : Text("0")
                         // style: TextStyle(fontSize: 18, color: Colors.black))
                       ],
                     ),
@@ -196,9 +216,11 @@ class _RelatorioPageState extends State<RelatorioPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "15",
-                        )
+                        _bloc.vistoriadas != null
+                            ? Text(
+                                "${_bloc.vistoriadas}",
+                              )
+                            : Text("0")
                         // style: TextStyle(fontSize: 18, color: Colors.black))
                       ],
                     ),
