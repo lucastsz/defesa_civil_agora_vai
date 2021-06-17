@@ -1,4 +1,5 @@
 import 'package:defesa_civil_agora_vai/logics/home_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -72,6 +73,8 @@ class _HomeRefState extends State<CadastroPage> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () {
+                FirebaseAuth auth = FirebaseAuth.instance;
+                auth.signOut();
                 Navigator.of(context).pop(
                   MaterialPageRoute(
                     builder: (context) => Login_page(),

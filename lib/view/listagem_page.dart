@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
 import 'package:defesa_civil_agora_vai/view/editar_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
@@ -47,6 +48,8 @@ class _ListagemPageState extends State<ListagemPage> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () {
+                FirebaseAuth auth = FirebaseAuth.instance;
+                auth.signOut();
                 Navigator.of(context).pop(
                   MaterialPageRoute(
                     builder: (context) => Login_page(),

@@ -2,7 +2,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defesa_civil_agora_vai/banco/banco.dart';
 import 'package:defesa_civil_agora_vai/logics/login_bloc.dart';
+import 'package:defesa_civil_agora_vai/model/usuario.dart';
 import 'package:defesa_civil_agora_vai/view/cadastro_usuario.dart';
+import 'package:defesa_civil_agora_vai/view/listagem_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,7 +23,7 @@ Widget Seta = Icon(
   size: 50,
   color: Colors.white,
 );
-TextEditingController _matricula = TextEditingController();
+TextEditingController _email = TextEditingController();
 TextEditingController _senha = TextEditingController();
 
 class _Login_pageState extends State<Login_page> {
@@ -30,9 +33,25 @@ class _Login_pageState extends State<Login_page> {
     return customSize * unitHeightValue;
   }
 
-  LoginBloc bloc = LoginBloc();
   double altura = 100;
   Widget escolhe;
+
+  TextEditingController _controllerEmail =
+      TextEditingController(text: "jamilton@gmail.com");
+  TextEditingController _controllerSenha =
+      TextEditingController(text: "1234567");
+  String _mensagemErro = "";
+
+  Future _verificarUsuarioLogado() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
+  }
+
+  @override
+  void initState() {
+    _verificarUsuarioLogado();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,17 +201,16 @@ Widget _buildLogin(context, LoginBloc bloc) {
           decoration: BoxDecoration(
               color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
           child: TextField(
-            controller: _matricula,
-            inputFormatters: [LengthLimitingTextInputFormatter(6)],
+            controller: _email,
             style: TextStyle(fontSize: sizeTextHeaderSet(context)),
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 hoverColor: Colors.black,
                 prefixIcon: Icon(
                   Icons.person,
                   color: Color.fromRGBO(203, 79, 36, 1),
                 ),
-                hintText: 'Matrícula',
+                hintText: 'Email',
                 hintStyle: TextStyle(
                   height: 3.10,
                 ),
@@ -230,7 +248,7 @@ Widget _buildLogin(context, LoginBloc bloc) {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * .06,
+          height: 20,
         ),
         GestureDetector(
             onTap: () {
@@ -240,17 +258,20 @@ Widget _buildLogin(context, LoginBloc bloc) {
                 ),
               );
             },
-            child: Text("Cadastrar")),
+            child: Text(
+              "Deseja Cadastrar outro agente ?",
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            )),
         SizedBox(
           height: MediaQuery.of(context).size.height * .06,
         ),
         GestureDetector(
           onTap: () async {
-            bloc.txtMatricula = _matricula;
+            bloc.txtMatricula = _email;
             bloc.txtSenha = _senha;
             if (bloc.txtSenha.text == "" ||
                 _senha.text == "" ||
-                _matricula.text == "" ||
+                _email.text == "" ||
                 bloc.txtMatricula.text == "") {
               showDialog(
                 context: context,
@@ -278,27 +299,25 @@ Widget _buildLogin(context, LoginBloc bloc) {
               );
             }
 
-            Banco _banco = new Banco();
-            QuerySnapshot querySnapshot = await _banco.db
-                .collection("usuarios")
-                .where("matricula",
-                    isEqualTo: bloc.txtMatricula.text.toString())
-                .get();
-            for (DocumentSnapshot item in querySnapshot.docs) {
-              var dados = item.data();
+            FirebaseAuth auth = FirebaseAuth.instance;
+
+            auth
+                .signInWithEmailAndPassword(
+                    email: _email.text, password: _senha.text)
+                .then((firebaseUser) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => NavigatorPage(),
+                ),
+              );
+            }).catchError((error) {
               print(
-                  "Dados exibicao: ${dados["nome"]} idade: ${dados["matricula"]}");
-              if (dados["senha"] == bloc.txtSenha.text.toString()) {
-                _senha.clear();
-                _matricula.clear();
-                print("Senha confere");
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => NavigatorPage(),
-                  ),
-                );
-              }
-            }
+                  "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!");
+            });
+
+            _senha.clear();
+            _email.clear();
+            print("Senha confere");
           },
           child: Container(
             height: MediaQuery.of(context).size.height * .070,

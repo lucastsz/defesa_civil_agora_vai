@@ -10,12 +10,9 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   //Controladores
-  TextEditingController _controllerNome =
-      TextEditingController(text: "Jamilton Damasceno");
-  TextEditingController _controllerEmail =
-      TextEditingController(text: "jamilton@gmail.com");
-  TextEditingController _controllerSenha =
-      TextEditingController(text: "1234567");
+  TextEditingController _controllerNome = TextEditingController();
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
   String _mensagemErro = "";
 
   _validarCampos() {
@@ -87,13 +84,12 @@ class _CadastroState extends State<Cadastro> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(bottom: 32),
-                  child: Image.asset(
-                    "imagens/usuario.png",
-                    width: 200,
-                    height: 150,
-                  ),
-                ),
+                    padding: EdgeInsets.only(bottom: 32),
+                    child: Image.network(
+                      "https://img.icons8.com/ios/452/user--v1.png",
+                      width: 100,
+                      height: 100,
+                    )),
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: TextField(
@@ -145,7 +141,7 @@ class _CadastroState extends State<Cadastro> {
                         "Cadastrar",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      color: Colors.green,
+                      color: Color.fromRGBO(32, 32, 86, 1),
                       padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32)),
