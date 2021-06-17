@@ -299,9 +299,6 @@ class _EditarPageState extends State<EditarPage> {
                     width: MediaQuery.of(context).size.width * .54,
                     height: MediaQuery.of(context).size.height * .1,
                     child: TextField(
-                      onTap: () {
-                        VerificaAnonimo();
-                      },
                       controller: _bloc.txtTelefone,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [numbermaskFormatter],
@@ -526,72 +523,38 @@ class _EditarPageState extends State<EditarPage> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * .55,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Color.fromRGBO(203, 79, 36, 1),
-                            style: BorderStyle.solid,
-                            width: 3),
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width * .55,
-                      child: BuildDropdown(
-                        itemsList: [
-                          'Selecione o Bairro',
-                          '13 de Julho',
-                          '17 de Março',
-                          'Aeroporto',
-                          'América',
-                          'Atalaia',
-                          'Bugio',
-                          'Capucho',
-                          'Centro',
-                          'Cidade Nova',
-                          'Cirurgia',
-                          'Coroa do Meio',
-                          'Dezoito do Forte',
-                          'Dom Luciano',
-                          'Farolândia',
-                          'Getúlio Vargas',
-                          'Grageru',
-                          'Inácio Barbosa',
-                          'Industrial',
-                          'Jabotiana',
-                          'Japãozinho',
-                          'Jardim Centenário',
-                          'Jardins',
-                          'José C. de Araújo',
-                          'Lamarão',
-                          'Luzia',
-                          'Marivan',
-                          'Novo Paraíso',
-                          'Olaria',
-                          'Palestina',
-                          'Pereira Lobo',
-                          'Ponto Novo',
-                          'Porto Dantas',
-                          'Salgado Filho',
-                          'Santa Maria',
-                          'Santo Antônio',
-                          'Santos Dumont',
-                          'São Conrado',
-                          'São José',
-                          'Siqueira Campos',
-                          'Soledade',
-                          'Suíssa',
-                          'Zona de Expansão',
-                        ],
-                        defaultValue: 'Selecione o Bairro',
-                        onChanged: (value) {
-                          bairro = value;
-                          _bloc.txtBairro.text = bairro;
-                        },
+                    width: MediaQuery.of(context).size.width * 0.55,
+                    height: MediaQuery.of(context).size.height * .1,
+                    child: TextField(
+                      controller: _bloc.txtBairro,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(5),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(32, 32, 86, 1.0),
+                              style: BorderStyle.solid,
+                              width: 3),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(203, 79, 36, 1),
+                                style: BorderStyle.solid,
+                                width: 3)),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: sizeTextHeaderSet(context) * 1,
+                        ),
+                        labelText: 'Bairro',
+                        prefixIcon: const Icon(
+                          Icons.home_work,
+                          color: Color.fromRGBO(203, 79, 36, 1),
+                        ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
 
@@ -624,36 +587,35 @@ class _EditarPageState extends State<EditarPage> {
 
               Container(
                 alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * .07,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromRGBO(203, 79, 36, 1),
-                        style: BorderStyle.solid,
-                        width: 3),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                  ),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * .9,
-                  child: BuildDropdown(
-                    itemsList: [
-                      'Selecione o tipo de Natureza',
-                      'Alagamento/Enchente/Inundação',
-                      'Desabamento',
-                      'Deslizamento',
-                      'Risco de Desabamento',
-                      'Risco de Deslizamento',
-                      'Retirada de Parede',
-                      'Risco Explosivo/Químico/Radioativo/Biológico',
-                      'Outro',
-                    ],
-                    defaultValue: 'Selecione o tipo de Natureza',
-                    onChanged: (value) {
-                      tipoNatureza = value;
-                      _bloc.txtTipoNatureza.text = tipoNatureza;
-                    },
+                width: MediaQuery.of(context).size.width * 0.88,
+                height: MediaQuery.of(context).size.height * .1,
+                child: TextField(
+                  controller: _bloc.txtTipoNatureza,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(5),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                          color: Color.fromRGBO(32, 32, 86, 1.0),
+                          style: BorderStyle.solid,
+                          width: 3),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(203, 79, 36, 1),
+                            style: BorderStyle.solid,
+                            width: 3)),
+                    labelStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: sizeTextHeaderSet(context) * 1,
+                    ),
+                    labelText: 'NATUREZA',
+                    prefixIcon: const Icon(
+                      Icons.home_work,
+                      color: Color.fromRGBO(203, 79, 36, 1),
+                    ),
                   ),
                 ),
               ),

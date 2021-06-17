@@ -186,6 +186,7 @@ class _ListagemPageState extends State<ListagemPage> {
                                                 minWidth: 20,
                                                 color: Colors.green[800],
                                                 onPressed: () {
+                                                  Navigator.pop(context);
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (context) =>
@@ -264,6 +265,16 @@ class _ListagemPageState extends State<ListagemPage> {
                                                   color: Colors.green[800],
                                                   onPressed: () {
                                                     doc.reference.delete();
+
+                                                    _banco.db
+                                                        .collection("endereco")
+                                                        .doc("${item["id"]}")
+                                                        .delete();
+                                                    _banco.db
+                                                        .collection(
+                                                            "solicitante")
+                                                        .doc("${item["id"]}")
+                                                        .delete();
                                                     Navigator.pop(context);
                                                   },
                                                   child: Text(

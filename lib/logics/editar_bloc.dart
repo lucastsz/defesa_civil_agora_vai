@@ -23,6 +23,8 @@ class EditarBloc {
     txtIdProtocolo.text = item["id"];
     txtData.text = item["data"];
     txtNomeSolicitante.text = item["nomesolicitante"];
+    txtTelefone.text = item["telefone"];
+    txtPontoDeRef.text = item["pontoderef"];
     txtLocal.text = item["local"];
     txtNumero.text = item["numero"];
     txtMotivo.text = item["motivo"];

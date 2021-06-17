@@ -56,6 +56,8 @@ class HomeBloc {
       "motivo": txtMotivo.text.toString().toUpperCase(),
       "situacao": situacao.toString(),
       "observacao": txtObservacao.text.toString().toUpperCase(),
+      "endereco": txtIdProtocolo.text.toString().toUpperCase(),
+      "solicitante": txtIdProtocolo.text.toString().toUpperCase(),
     });
   }
 
