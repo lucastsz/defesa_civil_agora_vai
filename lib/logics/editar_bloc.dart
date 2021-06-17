@@ -64,7 +64,7 @@ class EditarBloc {
   }
 
   void cadastrarSolicitante(bool anonimo) {
-    if (anonimo = true) {
+    if (anonimo == true) {
       txtNomeSolicitante.text = "ANÔNIMO";
     }
 

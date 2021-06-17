@@ -775,51 +775,18 @@ class _EditarPageState extends State<EditarPage> {
 
               GestureDetector(
                 onTap: () {
-                  if (_bloc.txtIdProtocolo.text == "" ||
-                      (_bloc.txtData.text == "") ||
-                      _bloc.txtData.text.length < 10 ||
-                      _bloc.txtLocal.text == "" ||
-                      (bairro == "Selecione o Bairro" || bairro == null) ||
-                      (tipoNatureza == "Selecione o tipo de Natureza" ||
-                          tipoNatureza == null)) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          titleTextStyle: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                          ),
-                          title: Text("EXISTEM CAMPOS A SEREM PREENCHIDOS!"),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(
-                                "Ok",
-                                style: TextStyle(
-                                    fontSize: sizeTextHeaderSet(context) * 0.85,
-                                    color: Colors.black),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    _bloc.cadastrarSolicitante(checkAnonimo);
-                    _bloc.cadastrarEndereco();
-                    _bloc.cadastrarProtocolo(checkAnonimo, radioItem);
-                    CircularProgressIndicator(
-                      value: 0.2,
-                    );
+                  _bloc.cadastrarSolicitante(checkAnonimo);
+                  _bloc.cadastrarEndereco();
+                  _bloc.cadastrarProtocolo(checkAnonimo, radioItem);
+                  CircularProgressIndicator(
+                    value: 0.2,
+                  );
 
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => NavigatorPage(),
-                      ),
-                    );
-                  }
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NavigatorPage(),
+                    ),
+                  );
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * .070,
