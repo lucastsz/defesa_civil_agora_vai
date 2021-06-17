@@ -13,7 +13,11 @@ class ConsultarProtocoloSolicitanteBloc {
   TextEditingController txtLocalS = TextEditingController();
   TextEditingController txtPontoDeRefS = TextEditingController();
   TextEditingController txtNumeroS = TextEditingController();
+  TextEditingController txtBairro = TextEditingController();
   TextEditingController txtMotivoS = TextEditingController();
+  TextEditingController txtTipoNatureza = TextEditingController();
+  TextEditingController txtObservacao = TextEditingController();
+  String txtSituacao;
 
   Future<bool> verificar() async {
     QuerySnapshot querySnapshot = await _banco.db
@@ -32,24 +36,6 @@ class ConsultarProtocoloSolicitanteBloc {
     return false;
   }
 
-  // Future preencherCampos() async {
-  //   QuerySnapshot querySnapshot = await _banco.db
-  //       .collection("protocolo")
-  //       .where("id", isEqualTo: txtPesquisa.text.toString())
-  //       .get();
-  //   for (DocumentSnapshot item in querySnapshot.docs) {
-  //     var dados = item.data();
-  //     print(
-  //         "Dados exibicao: ${dados["id"]} idade: ${dados["nomesolicitante"]}");
-  //     txtIdProtocolo.text = dados["id"].toString();
-  //     txtData.text = dados["data"];
-  //     txtLocal.text = dados["local"];
-  //     txtMotivo.text = dados["motivo"];
-  //     txtNomeSolicitante = dados["nomesolicitante"];
-  //     txtPontoDeRef = dados["pontoderef"];
-  //     txtTelefone = dados["telefone"];
-  //   }
-  // }
   Future preencherCampos(String pesquisa) async {
     DocumentSnapshot snapshot =
         await _banco.db.collection("protocolo").doc(pesquisa).get();
@@ -64,5 +50,7 @@ class ConsultarProtocoloSolicitanteBloc {
     txtPontoDeRefS.text = dados["pontoderef"];
     txtTelefoneS.text = dados["telefone"];
     txtNumeroS.text = dados["numero"];
+    txtObservacao.text = dados["observacao"];
+    txtSituacao = dados["situacao"];
   }
 }

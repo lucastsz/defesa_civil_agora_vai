@@ -15,9 +15,6 @@ class SolicitanteProtocolo extends StatefulWidget {
 class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
   ConsultarProtocoloSolicitanteBloc _bloc;
 
-  String bairro;
-  String tipoNatureza;
-
   bool checkAnonimo = false;
   void VerificaAnonimo() {
     checkAnonimo = false;
@@ -462,7 +459,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                     width: MediaQuery.of(context).size.width * .55,
                     height: MediaQuery.of(context).size.height * .1,
                     child: TextField(
-                      controller: _bloc.txtNumeroS,
+                      controller: _bloc.txtBairroS,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [LengthLimitingTextInputFormatter(5)],
                       decoration: InputDecoration(
@@ -565,7 +562,7 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * .1,
                 child: TextField(
-                  controller: _bloc.txtPontoDeRefS,
+                  controller: _bloc.txtTipoNatureza,
                   textCapitalization: TextCapitalization.characters,
                   decoration: InputDecoration(
                     isDense: true,
@@ -597,7 +594,77 @@ class _SolicitanteProtocoloState extends State<SolicitanteProtocolo> {
               ),
 
               Container(
-                height: MediaQuery.of(context).size.height * .1,
+                height: MediaQuery.of(context).size.height * .04,
+              ),
+              //
+
+              Container(
+                alignment: Alignment.centerLeft,
+                color: Color.fromRGBO(32, 32, 86, 1.0),
+                height: MediaQuery.of(context).size.height * .07,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 38),
+                  child: Text(
+                    "SITUAÇÃO",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: sizeTextHeaderSet(context) * 1.2,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .05,
+              ),
+              Text(
+                _bloc.txtSituacao.toString(),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+
+              Container(
+                height: MediaQuery.of(context).size.height * .05,
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 100,
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(5),
+                    bottomRight: Radius.circular(5),
+                    bottomLeft: Radius.circular(5),
+                  ),
+                  border: Border.all(
+                    color: Color.fromRGBO(203, 79, 36, 1),
+                    width: 3,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: TextField(
+                    controller: _bloc.txtObservacao,
+                    maxLines: 7,
+                    minLines: 5,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'Observação (Opcional)',
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
+                      ),
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: sizeTextHeaderSet(context) * 1,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              Container(
+                height: MediaQuery.of(context).size.height * .06,
               ),
             ],
           ),

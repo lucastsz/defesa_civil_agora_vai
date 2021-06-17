@@ -261,7 +261,7 @@ Widget _buildLogin(context, LoginBloc bloc) {
               style: TextStyle(color: Colors.white, fontSize: 15),
             )),
         SizedBox(
-          height: MediaQuery.of(context).size.height * .06,
+          height: MediaQuery.of(context).size.height * .035,
         ),
         GestureDetector(
           onTap: () async {
