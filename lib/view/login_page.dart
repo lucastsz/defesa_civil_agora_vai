@@ -36,10 +36,8 @@ class _Login_pageState extends State<Login_page> {
   double altura = 100;
   Widget escolhe;
 
-  TextEditingController _controllerEmail =
-      TextEditingController(text: "jamilton@gmail.com");
-  TextEditingController _controllerSenha =
-      TextEditingController(text: "1234567");
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
   String _mensagemErro = "";
 
   Future _verificarUsuarioLogado() {
